@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/4.6.0/wavesurfer.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+      #controls {
+        margin-right: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .icon {
+        font-size: 32px;
+      }
+      body {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+      #waveform {
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <i class="fa-regular fa-circle-play icon"></i>
+    </div>
+    <div id="waveform"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/4.6.0/wavesurfer.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var wavesurfer = WaveSurfer.create({
+          container: '#waveform',
+          waveColor: 'violet',
+          progressColor: 'purple',
+          barWidth: 3, // Width of the bars
+          barGap: 2, // Gap between bars
+          barHeight: 1, // Height of the bars (0.5 to 1 for full height)
+        });
+
+        // Load an audio file
+        wavesurfer.load('https://cdn.freesound.org/previews/741/741688_8092625-lq.mp3');
+
+        var isPlaying = false;
+        var toggleButton = document.getElementById('controls');
+        var icon = toggleButton.querySelector('.icon');
+
+        // Toggle play/pause
+        toggleButton.addEventListener('click', function () {
+          if (isPlaying) {
+            wavesurfer.pause();
+            icon.classList.remove('fa-circle-pause');
+            icon.classList.add('fa-circle-play');
+          } else {
+            wavesurfer.play();
+            icon.classList.remove('fa-circle-play');
+            icon.classList.add('fa-circle-pause');
+          }
+          isPlaying = !isPlaying;
+        });
+      });
+    </script>
+  </body>
+</html>
